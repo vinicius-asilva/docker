@@ -2,7 +2,11 @@
 
 Arquivo docker-compose que ira fornecer 3 containers sendo { wordpress (appWeb) + banco mysql (webDB) + adminer }
 
-1. Apos fazer o clone desse projeto, executar o comando dentro do diretorio que contem o arquivo docker-compose.yml
+1. Apos fazer o clone desse projeto, acesse o diretorio onde o arquivo docker-compose.yml se encontra e crie as pastas
+   - wp
+   - database
+   
+   e em seguida execute o comando abaixo e aguarde finalizar, automaticamente os containers ficarão ativos:
 ```
 docker compose up -d
 ```
