@@ -1,0 +1,50 @@
+version: '2.8'
+
+networks:
+  networkApp:
+    external: true
+
+services:
+  db:
+    container_name: webDB
+    image: mysql:latest
+    restart: always
+    volumes:
+      - ./database:/var/lib/mysql/webDB
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
+      MYSQL_DATABASE: webdb
+      MYSQL_USER: webdb
+      MYSQL_PASSWORD: senhaSENHA
+    networks:
+      - networkApp
+      
+  webapp:
+    container_name: appWeb
+    depends_on:
+      - db 
+    image: wordpress:6.1
+    volumes:
+      - ./wp:/var/www/html/wp-content
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: webDB
+      WORDPRESS_DB_USER: webdb
+      WORDPRESS_DB_PASSWORD: senhaSENHA
+      WORDPRESS_DB_NAME: webdb
+      WORDPRESS_DEBUG: 1
+    networks:
+      - networkApp
+
+  adminer:
+    container_name: adminer
+    image: adminer:latest
+    restart: always
+    depends_on:
+      - db
+    ports:
+    - "9000:8080"
+    networks:
+      - networkApp
+
